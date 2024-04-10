@@ -10,7 +10,7 @@ using TruckHubSystem.Infrastructure.Data;
 
 namespace TruckHubSystem.Infrastructure.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(TruckHubDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

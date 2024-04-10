@@ -26,8 +26,8 @@ namespace TruckHubSystem.Infrastructure.Constants
         public const int LoadWeigthMinKg = 1;
         public const int LoadWeightMaxKg = 150000;
         public const int CityNameMaxLength = 100;
-        public const int MinimumLoadPrice = 1;
-        public const int MaximumLoadPrice = 5000000;
+        public const string MinimumLoadPrice = "1.00";
+        public const string MaximumLoadPrice = "5000000.00";
         public const int MinDistanceInKm = 1;
         public const int MaxDistanceInKm = 1000;
 
@@ -37,5 +37,7 @@ namespace TruckHubSystem.Infrastructure.Constants
         public const int MinYearDrivingLicenceAcquired = 1960;
 
         public const int FactoryNameMaxLength = 200;
+
+        public const int BookingNotesMaxLength = 500;
     }
 }

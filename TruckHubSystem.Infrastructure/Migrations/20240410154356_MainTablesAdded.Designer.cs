@@ -11,7 +11,7 @@ using TruckHubSystem.Infrastructure.Data;
 
 namespace TruckHubSystem.Infrastructure.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(TruckHubDbContext))]
     [Migration("20240410154356_MainTablesAdded")]
     partial class MainTablesAdded
     {
