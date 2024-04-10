@@ -5,6 +5,10 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TruckHubSystem", "TruckHubSystem\TruckHubSystem.csproj", "{8F5D5812-4F6C-4C91-8C25-6EB354C9C635}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TruckHubSystem.Core", "TruckHubSystem.Core\TruckHubSystem.Core.csproj", "{C362E420-6E3D-4CA7-BD6E-6074609A48C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TruckHubSystem.Infrastructure", "TruckHubSystem.Infrastructure\TruckHubSystem.Infrastructure.csproj", "{F05A87B6-1EF1-4F93-850A-DB5C5EC94CBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{8F5D5812-4F6C-4C91-8C25-6EB354C9C635}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F5D5812-4F6C-4C91-8C25-6EB354C9C635}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F5D5812-4F6C-4C91-8C25-6EB354C9C635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C362E420-6E3D-4CA7-BD6E-6074609A48C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C362E420-6E3D-4CA7-BD6E-6074609A48C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C362E420-6E3D-4CA7-BD6E-6074609A48C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C362E420-6E3D-4CA7-BD6E-6074609A48C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F05A87B6-1EF1-4F93-850A-DB5C5EC94CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F05A87B6-1EF1-4F93-850A-DB5C5EC94CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F05A87B6-1EF1-4F93-850A-DB5C5EC94CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F05A87B6-1EF1-4F93-850A-DB5C5EC94CBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
