@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TruckHubSystem.Data;
+using TruckHubSystem.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

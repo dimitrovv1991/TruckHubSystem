@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TruckHubSystem.Infrastructure\TruckHubSystem.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
