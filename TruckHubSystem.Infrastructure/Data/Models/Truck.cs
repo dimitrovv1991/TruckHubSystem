@@ -27,7 +27,7 @@ namespace TruckHubSystem.Infrastructure.Data.Models
         public string Model { get; set; } = string.Empty;
 
         [Required]
-        [YearRange(YearManifacturedMin, ErrorMessage = YearManufacturedErrorMessage)]
+        [YearRange(YearManufacturedMin, ErrorMessage = YearErrorMessage)]
         [Comment("Year manufactured")]
         public int YearManufactured { get; set; }
 
@@ -45,7 +45,7 @@ namespace TruckHubSystem.Infrastructure.Data.Models
         public string ImageUrl { get; set; } = string.Empty;
 
         [Required]
-        [Comment("Availability")]
+        [Comment("Is truck available")]
         public bool Available { get; set; } = true;
 
         [Required]

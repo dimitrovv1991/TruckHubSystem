@@ -10,8 +10,8 @@ namespace TruckHubSystem.Infrastructure.Attributes
 {
     public class YearRangeAttribute : RangeAttribute
     {
-        public YearRangeAttribute(int YearManifacturedMin)
-            :base(YearManifacturedMin,DateTime.Now.Year)
+        public YearRangeAttribute(int yearMinValue)
+            :base(yearMinValue, DateTime.Now.Year)
         {
             
         }
