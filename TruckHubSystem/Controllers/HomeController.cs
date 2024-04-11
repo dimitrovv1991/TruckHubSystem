@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using TruckHubSystem.Core.Models.Home;
 using TruckHubSystem.Models;
 
 namespace TruckHubSystem.Controllers
@@ -15,7 +16,9 @@ namespace TruckHubSystem.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new IndexViewModel();
+
+            return View(model);
         }
 
 
