@@ -10,7 +10,12 @@ builder.Services.AddDbContext<TruckHubDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+        options.Password.RequireDigit = false;
+        options.Password.RequireUppercase = false;
+    })
     .AddEntityFrameworkStores<TruckHubDbContext>();
 builder.Services.AddControllersWithViews();
 
