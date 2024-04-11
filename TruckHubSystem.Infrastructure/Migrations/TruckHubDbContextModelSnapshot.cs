@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TruckHubSystem.Infrastructure.Data;
 
@@ -12,10 +11,9 @@ using TruckHubSystem.Infrastructure.Data;
 namespace TruckHubSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(TruckHubDbContext))]
-    [Migration("20240411050041_LocationAddedToFactory")]
-    partial class LocationAddedToFactory
+    partial class TruckHubDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -492,40 +490,6 @@ namespace TruckHubSystem.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.TransmissionType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasComment("TransmissionType Identifier");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasComment("Transmission type");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TransmissionTypes");
-
-                    b.HasComment("Truck transmission type");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Automatic"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Manual"
-                        });
-                });
-
             modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.Truck", b =>
                 {
                     b.Property<int>("Id")
@@ -566,16 +530,11 @@ namespace TruckHubSystem.Infrastructure.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasComment("Model");
 
-                    b.Property<int>("TransmissionTypeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("YearManufactured")
                         .HasColumnType("int")
                         .HasComment("Year manufactured");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TransmissionTypeId");
 
                     b.ToTable("Trucks");
 
@@ -695,17 +654,6 @@ namespace TruckHubSystem.Infrastructure.Migrations
                     b.Navigation("UnloadingFactory");
                 });
 
-            modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.Truck", b =>
-                {
-                    b.HasOne("TruckHubSystem.Infrastructure.Data.Models.TransmissionType", "TransmissionType")
-                        .WithMany("Trucks")
-                        .HasForeignKey("TransmissionTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TransmissionType");
-                });
-
             modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.BookingStatus", b =>
                 {
                     b.Navigation("Bookings");
@@ -721,11 +669,6 @@ namespace TruckHubSystem.Infrastructure.Migrations
             modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.LoadCategory", b =>
                 {
                     b.Navigation("Loads");
-                });
-
-            modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.TransmissionType", b =>
-                {
-                    b.Navigation("Trucks");
                 });
 #pragma warning restore 612, 618
         }
