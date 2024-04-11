@@ -3,6 +3,53 @@
 @{
     ViewBag.Title = "Add truck";
 }
-
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="Add" method="post">
+            <div class="mb-3">
+                <label asp-for="Manufacturer" class="form-label-add-edit">Manufacturer</label>
+                <input asp-for="Manufacturer" class="form-control" aria-required="true" />
+                <span asp-validation-for="Manufacturer" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Model" class="form-label-add-edit">Model</label>
+                <input asp-for="Model" class="form-control" aria-required="true" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="YearManufactured" class="form-label-add-edit">Year Manufactured</label>
+                <input asp-for="YearManufactured" class="form-control" aria-required="true" />
+                <span asp-validation-for="YearManufactured" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="LicensePlate" class="form-label-add-edit">License Plate Number</label>
+                <input asp-for="LicensePlate" class="form-control" aria-required="true" />
+                <span asp-validation-for="LicensePlate" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="CapacityKg" class="form-label-add-edit">Capacity (kg)</label>
+                <input asp-for="CapacityKg" class="form-control" aria-required="true" />
+                <span asp-validation-for="CapacityKg" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ImageUrl" class="form-label-add-edit">Image URL</label>
+                <input asp-for="ImageUrl" class="form-control" aria-required="true" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            <div class="mb-3">
+                <label asp-for="Available" class="form-label-add-edit">Available</label>
+                <input asp-for="Available" type="checkbox" />
+                <span asp-validation-for="Available" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Add Truck</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

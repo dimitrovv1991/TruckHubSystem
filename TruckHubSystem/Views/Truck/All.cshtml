@@ -1,7 +1,28 @@
-﻿@model AllTrucksQueryModel
+﻿@model ICollection<TruckDetailsViewModel>
 @{
-    ViewBag.Title = "All trucks";
+    ViewBag.Title = "All trucks in the hub";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
+
+<div class="text-center row">
+    @foreach (var truck in Model)
+    {
+        <div class="card col-4" style="width: 20rem;">
+            <img src="@truck.ImageUrl" class="card-img-top" alt="Truck Image">
+            <div class="card-body">
+                <h4 class="card-title mt-1">@truck.Manufacturer @truck.Model</h4>
+                <h5 class="card-title mt-1">License Plate: @truck.LicensePlate</h5>
+                <p class="mb-0"><span class="fw-bold">Capacity: </span>@truck.CapacityKg Kg</p>
+                <p class="mb-0"><span class="fw-bold">Available: </span>@(truck.Available ? "Yes" : "No")</p>
+            </div>
+
+            <a asp-controller="Truck" asp-action="Details" asp-route-id="@truck.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

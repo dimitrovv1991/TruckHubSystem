@@ -4,5 +4,78 @@
     ViewBag.Title = "Add load";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
-<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Add" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Weight" class="control-label"></label>
+                <input asp-for="Weight" class="form-control" />
+                <span asp-validation-for="Weight" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LoadCategoryId" class="control-label"></label>
+                <input asp-for="LoadCategoryId" class="form-control" />
+                <span asp-validation-for="LoadCategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LoadingCity" class="control-label"></label>
+                <input asp-for="LoadingCity" class="form-control" />
+                <span asp-validation-for="LoadingCity" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DestinationCity" class="control-label"></label>
+                <input asp-for="DestinationCity" class="form-control" />
+                <span asp-validation-for="DestinationCity" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LoadingFactoryId" class="control-label"></label>
+                <input asp-for="LoadingFactoryId" class="form-control" />
+                <span asp-validation-for="LoadingFactoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UnloadingFactoryId" class="control-label"></label>
+                <input asp-for="UnloadingFactoryId" class="form-control" />
+                <span asp-validation-for="UnloadingFactoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DistanceInKm" class="control-label"></label>
+                <input asp-for="DistanceInKm" class="form-control" />
+                <span asp-validation-for="DistanceInKm" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

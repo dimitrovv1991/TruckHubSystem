@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TruckHubSystem.Infrastructure.Data;
+using TruckHubSystem.Infrastructure.Data.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<TruckHubDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<IRepository, Repository>();
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
@@ -19,6 +23,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     })
     .AddEntityFrameworkStores<TruckHubDbContext>();
 builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 

@@ -1,7 +1,26 @@
-﻿@model AllFactoriesQueryModel
+﻿@model ICollection<FactoryDetailsViewModel>
 @{
     ViewBag.Title = "All factories";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
+
+<div class="text-center row">
+    @foreach (var factory in Model)
+    {
+        <div class="card col-4" style="width: 20rem;">
+            <div class="card-body">
+                <h4 class="card-title mt-1">@factory.Name</h4>
+                <p class="card-text mt-1">@factory.Location</p>
+                <p class="card-text mt-1">Loads sent: @factory.LoadsSent</p>
+                <p class="card-text mt-1">Loads received: @factory.LoadsReceived</p>
+            </div>
+            <a asp-action="Details" asp-route-id="@factory.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

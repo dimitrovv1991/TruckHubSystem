@@ -2,12 +2,21 @@
 using Microsoft.AspNetCore.Mvc;
 using TruckHubSystem.Core.Models.Booking;
 using TruckHubSystem.Core.Models.Driver;
+using TruckHubSystem.Infrastructure.Data;
+using TruckHubSystem.Infrastructure.Data.Models;
 
 namespace TruckHubSystem.Controllers
 {
     [Authorize]
     public class DriverController : Controller
     {
+        private readonly TruckHubDbContext data;
+
+        public DriverController(TruckHubDbContext context)
+        {
+            data = context;
+        }
+
         [HttpGet]
         public async Task<IActionResult> All()
         {
@@ -27,13 +36,30 @@ namespace TruckHubSystem.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            return View();
+            DriverFormModel driverModel = new DriverFormModel();
+            return View(driverModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> Add(DriverFormModel model)
         {
-            return RedirectToAction(nameof(Details), new { id = 1 });
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var driverToAdd = new Driver()
+            {
+                FirstName = model.FirstName,
+                FamilyName = model.FamilyName,
+                PhoneNumber = model.PhoneNumber,
+                YearDrivingLicenseAcquired = model.YearDrivingLicenseAcquired
+            };
+
+            await data.Drivers.AddAsync(driverToAdd);
+            await data.SaveChangesAsync();
+
+            return RedirectToAction("All", "Driver");
         }
     }
 }
