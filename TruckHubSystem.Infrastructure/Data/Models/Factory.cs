@@ -20,6 +20,9 @@ namespace TruckHubSystem.Infrastructure.Data.Models
         [Comment("Factory name")]
         public string Name { get; set; } = string.Empty;
 
+        [Required]
+        [MaxLength(CityNameMaxLength)]
+        public string Location { get; set; } = string.Empty;
 
         public List<Load> LoadsSent = new List<Load>();
         public List<Load> LoadsReceived = new List<Load>();
