@@ -22,28 +22,26 @@ namespace TruckHubSystem.Infrastructure.Data
 
         public DbSet<LoadCategory> LoadCategories { get; set; } = null!;
 
-        public DbSet<TransmissionType> TransmissionTypes { get; set; } = null!;
-
         public DbSet<Truck> Trucks { get; set; } = null!;
 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Load>()
-                .HasOne(l => l.LoadingFactory)
-                .WithMany(f => f.LoadsSent)
-                .HasForeignKey(l => l.LoadingFactoryId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder.Entity<Load>()
+            //    .HasOne(l => l.LoadingFactory)
+            //    .WithMany(f => f.LoadsSent)
+            //    .HasForeignKey(l => l.LoadingFactoryId)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<Load>()
-                .HasOne(l => l.UnloadingFactory)
-                .WithMany(f => f.LoadsReceived)
-                .HasForeignKey(l => l.UnloadingFactoryId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder.Entity<Load>()
+            //    .HasOne(l => l.UnloadingFactory)
+            //    .WithMany(f => f.LoadsReceived)
+            //    .HasForeignKey(l => l.UnloadingFactoryId)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<Load>()
-                .Property(l => l.Price)
-                .HasColumnType("decimal(18, 2)");
+            //builder.Entity<Load>()
+            //    .Property(l => l.Price)
+            //    .HasColumnType("decimal(18, 2)");
 
 
             builder
@@ -101,19 +99,6 @@ namespace TruckHubSystem.Infrastructure.Data
                     Id = 8,
                     Name = "Others"
                 });
-
-            builder.Entity<TransmissionType>()
-                .HasData(new TransmissionType()
-                {
-                    Id = 1,
-                    Name = "Automatic"
-                },
-                new TransmissionType()
-                {
-                    Id = 2,
-                    Name = "Manual"
-                });
-
 
             base.OnModelCreating(builder);
         }

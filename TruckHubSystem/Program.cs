@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TruckHubSystem.Core.Contracts.Factory;
+using TruckHubSystem.Core.Services.Factory;
 using TruckHubSystem.Infrastructure.Data;
 using TruckHubSystem.Infrastructure.Data.Common;
 
@@ -9,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<TruckHubDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<IFactoryService, FactoryService>();
 
 builder.Services.AddScoped<IRepository, Repository>();
 

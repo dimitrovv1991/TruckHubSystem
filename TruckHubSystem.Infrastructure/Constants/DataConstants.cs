@@ -16,10 +16,18 @@ namespace TruckHubSystem.Infrastructure.Constants
 
         public const int BookingStatusNameMaxLength = 20;
 
+        public const int TruckOwnerNameMaxLength = 200;
+        public const int TruckOwnerNameMinLength = 2;
 
         public const int TruckManufacturerNameMaxLength = 50;
+        public const int TruckManufacturerNameMinLength = 1;
+
         public const int TruckModelNameMaxLength = 100;
+        public const int TruckModelNameMinLength = 1;
+
         public const int TruckLicensePlateMaxLength = 30;
+        public const int TruckLicensePlateMinLength = 3;
+
         public const int YearManufacturedMin = 1960;
 
         public const int LoadNameMaxLength = 200;

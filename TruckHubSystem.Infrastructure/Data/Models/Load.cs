@@ -30,35 +30,9 @@ namespace TruckHubSystem.Infrastructure.Data.Models
         public LoadCategory LoadCategory { get; set; } = null!;
 
         [Required]
-        [MaxLength(CityNameMaxLength)]
-        [Comment("City of loading the goods")]
-        public string LoadingCity { get; set; } = string.Empty;
+        public int FactoryId { get; set; }
 
-        [Required]
-        [MaxLength(CityNameMaxLength)]
-        [Comment("City of unloading the goods")]
-        public string DestinationCity { get; set; } = string.Empty;
-
-        [Required]
-        public int LoadingFactoryId { get; set; }
-
-        [ForeignKey(nameof(LoadingFactoryId))]
-        public Factory LoadingFactory {  get; set; } = null!;
-
-        [Required]
-        public int UnloadingFactoryId { get; set; }
-
-        [ForeignKey(nameof(UnloadingFactoryId))]
-        public Factory UnloadingFactory { get; set; } = null!;
-
-        [Required]
-        [Range(MinDistanceInKm,MaxDistanceInKm, ErrorMessage = CityDistanceError)]
-        [Comment("Distance between the cities")]
-        public int DistanceInKm { get; set; }
-
-        [Required]
-        [Range(typeof(decimal), MinimumLoadPrice, MaximumLoadPrice, ConvertValueInInvariantCulture = true)]
-        [Comment("Load price")]
-        public decimal Price { get; set; }
+        [ForeignKey(nameof(FactoryId))]
+        public Factory Factory {  get; set; } = null!;
     }
 }

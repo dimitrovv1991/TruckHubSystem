@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TruckHubSystem.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using TruckHubSystem.Infrastructure.Data;
 namespace TruckHubSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(TruckHubDbContext))]
-    partial class TruckHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240412064223_CreatorAddedToFactory")]
+    partial class CreatorAddedToFactory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -381,10 +383,26 @@ namespace TruckHubSystem.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("FactoryId")
-                        .HasColumnType("int");
+                    b.Property<string>("DestinationCity")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("City of unloading the goods");
+
+                    b.Property<int>("DistanceInKm")
+                        .HasColumnType("int")
+                        .HasComment("Distance between the cities");
 
                     b.Property<int>("LoadCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoadingCity")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("City of loading the goods");
+
+                    b.Property<int>("LoadingFactoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -393,15 +411,24 @@ namespace TruckHubSystem.Infrastructure.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasComment("Load name");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("Load price");
+
+                    b.Property<int>("UnloadingFactoryId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Weigth")
                         .HasColumnType("int")
                         .HasComment("Load weight");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FactoryId");
-
                     b.HasIndex("LoadCategoryId");
+
+                    b.HasIndex("LoadingFactoryId");
+
+                    b.HasIndex("UnloadingFactoryId");
 
                     b.ToTable("Loads");
 
@@ -622,26 +649,41 @@ namespace TruckHubSystem.Infrastructure.Migrations
 
             modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.Load", b =>
                 {
-                    b.HasOne("TruckHubSystem.Infrastructure.Data.Models.Factory", "Factory")
-                        .WithMany()
-                        .HasForeignKey("FactoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("TruckHubSystem.Infrastructure.Data.Models.LoadCategory", "LoadCategory")
                         .WithMany("Loads")
                         .HasForeignKey("LoadCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Factory");
+                    b.HasOne("TruckHubSystem.Infrastructure.Data.Models.Factory", "LoadingFactory")
+                        .WithMany("LoadsSent")
+                        .HasForeignKey("LoadingFactoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TruckHubSystem.Infrastructure.Data.Models.Factory", "UnloadingFactory")
+                        .WithMany("LoadsReceived")
+                        .HasForeignKey("UnloadingFactoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("LoadCategory");
+
+                    b.Navigation("LoadingFactory");
+
+                    b.Navigation("UnloadingFactory");
                 });
 
             modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.BookingStatus", b =>
                 {
                     b.Navigation("Bookings");
+                });
+
+            modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.Factory", b =>
+                {
+                    b.Navigation("LoadsReceived");
+
+                    b.Navigation("LoadsSent");
                 });
 
             modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.LoadCategory", b =>

@@ -15,16 +15,16 @@ namespace TruckHubSystem.Infrastructure.Data.Models
         [Key]
         [Comment("Truck Identifier")]
         public int Id { get; set; }
-
+        
         [Required]
         [MaxLength(TruckManufacturerNameMaxLength)]
         [Comment("Manufactrurer")]
-        public string Manufacturer { get; set; } = string.Empty;
+        public string Manufacturer { get; set; } = null!;
 
         [Required]
         [MaxLength(TruckModelNameMaxLength)]
         [Comment("Model")]
-        public string Model { get; set; } = string.Empty;
+        public string Model { get; set; } = null!;
 
         [Required]
         [YearRange(YearManufacturedMin, ErrorMessage = YearErrorMessage)]
@@ -34,7 +34,7 @@ namespace TruckHubSystem.Infrastructure.Data.Models
         [Required]
         [MaxLength(TruckLicensePlateMaxLength)]
         [Comment("License plate number")]
-        public string LicensePlate { get; set;} = string.Empty;
+        public string LicensePlate { get; set;} = null!;
 
         [Required]
         [Comment("Capacity in kilograms")]
@@ -42,16 +42,10 @@ namespace TruckHubSystem.Infrastructure.Data.Models
 
         [Required]
         [Comment("Truck image url")]
-        public string ImageUrl { get; set; } = string.Empty;
+        public string ImageUrl { get; set; } = null!;
 
         [Required]
         [Comment("Is truck available")]
         public bool Available { get; set; } = true;
-
-        [Required]
-        public int TransmissionTypeId { get; set; }
-
-        [ForeignKey(nameof(TransmissionTypeId))]
-        public TransmissionType TransmissionType { get; set; } = null!;
     }
 }
