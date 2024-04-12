@@ -1,0 +1,34 @@
+﻿@model LoadFormModel
+
+<h2>Add Load</h2>
+<hr />
+
+<form asp-action="AddLoad" method="post">
+    <input type="hidden" asp-for="FactoryId" value="@Model.FactoryId" />
+
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Weigth">Weight</label>
+        <input asp-for="Weigth" class="form-control" />
+        <span asp-validation-for="Weigth" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="@Model.LoadCategoryId" class="form-label-add-edit">Select Category</label>
+        <select asp-for="@Model.LoadCategoryId" class="form-control" aria-required="true">
+            <option disabled selected value="">Select Category...</option>
+            @foreach (var category in Model.LoadCategories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.LoadCategoryId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

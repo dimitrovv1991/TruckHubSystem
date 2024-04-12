@@ -7,17 +7,42 @@
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="All">All Bookings</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Driver" asp-action="All">All Drivers</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Driver
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" asp-area="" asp-controller="Driver" asp-action="Add">Add Driver</a>
+                <a class="dropdown-item" asp-area="" asp-controller="Driver" asp-action="All">All Drivers</a>
+            </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Factory" asp-action="All">All Factories</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Factory
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" asp-area="" asp-controller="Factory" asp-action="Add">Add Factory</a>
+                <a class="dropdown-item" asp-area="" asp-controller="Factory" asp-action="All">All Factories</a>
+                <a class="dropdown-item" asp-area="" asp-controller="Factory" asp-action="Mine">My Factories</a>
+            </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Load" asp-action="All">All Loads</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Load
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" asp-area="" asp-controller="Factory" asp-action="Mine">Add Load</a>
+                <a class="dropdown-item" asp-area="" asp-controller="Load" asp-action="All">All Loads</a>
+            </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Truck" asp-action="All">All Trucks</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Truck
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" asp-area="" asp-controller="Truck" asp-action="Add">Add Truck</a>
+                <a class="dropdown-item" asp-area="" asp-controller="Truck" asp-action="All">All Trucks</a>
+            </div>
         </li>
     }
 </ul>

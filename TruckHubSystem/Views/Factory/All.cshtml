@@ -14,6 +14,7 @@
                 <h4 class="card-title mt-1">@factory.Name</h4>
                 <p class="card-text mt-1">@factory.Location</p>
                 <p class="card-text mt-1">Loads sent: @factory.LoadsSent</p>
+                <p class="card-text mt-1">Current loads: @factory.CurrentLoads</p>
                 <p class="card-text mt-1">Loads received: @factory.LoadsReceived</p>
             </div>
             <a asp-action="Details" asp-route-id="@factory.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
