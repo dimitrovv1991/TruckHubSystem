@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TruckHubSystem.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using TruckHubSystem.Infrastructure.Data;
 namespace TruckHubSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(TruckHubDbContext))]
-    partial class TruckHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240412133736_LoadReceivedAdded")]
+    partial class LoadReceivedAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -496,30 +498,6 @@ namespace TruckHubSystem.Infrastructure.Migrations
                     b.ToTable("LoadsReceived");
                 });
 
-            modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.LoadSent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasComment("Load identifier");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("FactoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LoadId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FactoryId");
-
-                    b.HasIndex("LoadId");
-
-                    b.ToTable("LoadsSent");
-                });
-
             modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.Truck", b =>
                 {
                     b.Property<int>("Id")
@@ -688,25 +666,6 @@ namespace TruckHubSystem.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.LoadReceived", b =>
-                {
-                    b.HasOne("TruckHubSystem.Infrastructure.Data.Models.Factory", "Factory")
-                        .WithMany()
-                        .HasForeignKey("FactoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("TruckHubSystem.Infrastructure.Data.Models.Load", "Load")
-                        .WithMany()
-                        .HasForeignKey("LoadId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Factory");
-
-                    b.Navigation("Load");
-                });
-
-            modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.LoadSent", b =>
                 {
                     b.HasOne("TruckHubSystem.Infrastructure.Data.Models.Factory", "Factory")
                         .WithMany()

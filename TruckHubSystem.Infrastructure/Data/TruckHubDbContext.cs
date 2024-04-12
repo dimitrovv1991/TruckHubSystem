@@ -22,26 +22,43 @@ namespace TruckHubSystem.Infrastructure.Data
 
         public DbSet<LoadCategory> LoadCategories { get; set; } = null!;
 
+        public DbSet<LoadReceived> LoadsReceived {  get; set; } = null!;
+        public DbSet<LoadSent> LoadsSent {  get; set; } = null!;
+
         public DbSet<Truck> Trucks { get; set; } = null!;
 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //builder.Entity<Load>()
-            //    .HasOne(l => l.LoadingFactory)
-            //    .WithMany(f => f.LoadsSent)
-            //    .HasForeignKey(l => l.LoadingFactoryId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<LoadReceived>()
+                .HasKey(lr => lr.Id);
 
-            //builder.Entity<Load>()
-            //    .HasOne(l => l.UnloadingFactory)
-            //    .WithMany(f => f.LoadsReceived)
-            //    .HasForeignKey(l => l.UnloadingFactoryId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<LoadReceived>()
+                .HasOne(lr => lr.Factory)
+                .WithMany()
+                .HasForeignKey(lr => lr.FactoryId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            //builder.Entity<Load>()
-            //    .Property(l => l.Price)
-            //    .HasColumnType("decimal(18, 2)");
+            builder.Entity<LoadReceived>()
+                .HasOne(lr => lr.Load)
+                .WithMany()
+                .HasForeignKey(lr => lr.LoadId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<LoadSent>()
+                .HasKey(lr => lr.Id);
+
+            builder.Entity<LoadSent>()
+                .HasOne(lr => lr.Factory)
+                .WithMany()
+                .HasForeignKey(lr => lr.FactoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<LoadSent>()
+                .HasOne(lr => lr.Load)
+                .WithMany()
+                .HasForeignKey(lr => lr.LoadId)
+                .OnDelete(DeleteBehavior.Restrict);
 
 
             builder
@@ -56,6 +73,7 @@ namespace TruckHubSystem.Infrastructure.Data
                     Id = 2,
                     Name = "Completed"
                 });
+
 
             builder
                 .Entity<LoadCategory>()

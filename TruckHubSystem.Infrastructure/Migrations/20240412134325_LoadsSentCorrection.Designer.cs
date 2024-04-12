@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TruckHubSystem.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using TruckHubSystem.Infrastructure.Data;
 namespace TruckHubSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(TruckHubDbContext))]
-    partial class TruckHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240412134325_LoadsSentCorrection")]
+    partial class LoadsSentCorrection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -493,7 +495,7 @@ namespace TruckHubSystem.Infrastructure.Migrations
 
                     b.HasIndex("LoadId");
 
-                    b.ToTable("LoadsReceived");
+                    b.ToTable("LoadReceived");
                 });
 
             modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.LoadSent", b =>
@@ -517,7 +519,7 @@ namespace TruckHubSystem.Infrastructure.Migrations
 
                     b.HasIndex("LoadId");
 
-                    b.ToTable("LoadsSent");
+                    b.ToTable("LoadSent");
                 });
 
             modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.Truck", b =>

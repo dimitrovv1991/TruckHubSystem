@@ -34,5 +34,6 @@ namespace TruckHubSystem.Infrastructure.Data.Models
 
         [ForeignKey(nameof(FactoryId))]
         public Factory Factory {  get; set; } = null!;
+
     }
 }

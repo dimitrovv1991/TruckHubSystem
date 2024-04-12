@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TruckHubSystem.Infrastructure.Data.Models
 {
-    public class LoadReceived
+    public class LoadSent
     {
         [Key]
         [Comment("Load identifier")]
@@ -24,6 +24,6 @@ namespace TruckHubSystem.Infrastructure.Data.Models
         [Required]
         public int LoadId { get; set; }
         [ForeignKey(nameof(LoadId))]
-        public Load Load{ get; set; } = null!;
+        public Load Load { get; set; } = null!;
     }
 }

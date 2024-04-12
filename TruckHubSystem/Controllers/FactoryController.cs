@@ -38,8 +38,8 @@ namespace TruckHubSystem.Controllers
                     Id = f.Id,
                     Name = f.Name,
                     Location = f.Location,
-                    LoadsReceived = f.LoadsReceived.Count(),
-                    LoadsSent = f.LoadsSent.Count(),
+                    LoadsReceived = data.LoadsReceived.Count(l => l.FactoryId == f.Id),
+                    LoadsSent = data.LoadsSent.Count(l => l.FactoryId == f.Id),
                     CurrentLoads = data.Loads.Count(l => l.FactoryId == f.Id),
                     CreatorId = f.CreatorId
                 })
@@ -58,8 +58,8 @@ namespace TruckHubSystem.Controllers
                 {
                     Name = f.Name,
                     Location = f.Location,
-                    LoadsReceived = f.LoadsReceived.Count(),
-                    LoadsSent = f.LoadsSent.Count(),
+                    LoadsReceived = data.LoadsReceived.Count(l => l.FactoryId == f.Id),
+                    LoadsSent = data.LoadsSent.Count(l => l.FactoryId == f.Id),
                     CurrentLoads = data.Loads.Count(l=>l.FactoryId == f.Id)
                 })
                 .ToListAsync();
@@ -116,9 +116,20 @@ namespace TruckHubSystem.Controllers
                 .Factories
                 .FirstOrDefault(fi=>fi.Id == loadToAdd.FactoryId);
 
-            currentFactory.LoadsReceived.Add(loadToAdd);
+            currentFactory.LoadsReceived.Add(loadToAdd);           
 
             await data.Loads.AddAsync(loadToAdd);
+            await data.SaveChangesAsync();
+
+            var load = data.Loads.OrderByDescending(l => l.Id).FirstOrDefault();
+
+            var loadReceived = new LoadReceived
+            {
+                LoadId = load.Id,
+                FactoryId = load.FactoryId
+            };
+
+            await data.LoadsReceived.AddAsync(loadReceived);
             await data.SaveChangesAsync();
 
             return RedirectToAction("Mine", "Factory");
