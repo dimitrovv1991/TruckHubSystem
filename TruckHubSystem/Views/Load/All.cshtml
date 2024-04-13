@@ -1,7 +1,51 @@
-﻿@model AllLoadsQueryModel
+﻿@model ICollection<LoadDetailsViewModel>
+
 @{
     ViewBag.Title = "All loads";
 }
-
+@{
+    ViewBag.Title = "All loads";
+    int pageSize = 8;
+    int totalCount = Model.Count(); 
+    int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize); 
+}
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
+
+<div class="text-center row">
+    @foreach (var load in Model)
+    {
+        <div class="card col-4" style="width: 20rem;">
+            <div class="card-body">
+                <h3 class="card-title mt-1">Load: @load.Name</h3>
+                <p class="card-text mt-1">Category: @load.LoadCategoryName</p>
+                <h5 class="card-text mt-1">Factory: @load.FactoryName</h5>
+                <p class="card-text mt-1">Weight in kg: @load.Weigth</p>
+            </div>
+            <a asp-action="Details" asp-route-id="@load.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
+        </div>
+    }
+</div>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(ViewBag.PageNumber == 1 ? "disabled" : "")">
+            <a class="page-link" href="@Url.Action("All", new { page = ViewBag.PageNumber - 1 })" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        @for (int i = 1; i <= ViewBag.PageCount; i++)
+        {
+            <li class="page-item @(i == ViewBag.PageNumber ? "active" : "")">
+                <a class="page-link" href="@Url.Action("All", new { page = i })">@i</a>
+            </li>
+        }
+        <li class="page-item @(ViewBag.PageNumber == ViewBag.PageCount ? "disabled" : "")">
+            <a class="page-link" href="@Url.Action("All", new { page = ViewBag.PageNumber + 1 })" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

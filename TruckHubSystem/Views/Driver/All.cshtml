@@ -1,7 +1,26 @@
-﻿@model AllDriversQueryModel
+﻿@model ICollection<DriverFormModel>
+
 @{
     ViewBag.Title = "All drivers";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
+
+<div class="text-center row">
+    @foreach (var driver in Model)
+    {
+        <div class="card col-4" style="width: 20rem;">
+            <div class="card-body">
+                <h4 class="card-title mt-1">@driver.FirstName</h4>
+                <p class="card-text mt-1">@driver.FamilyName</p>
+                <p class="card-text mt-1">Year driving licence acquired: @driver.YearDrivingLicenseAcquired</p>
+            </div>
+            <a asp-action="Details" asp-route-id="@driver.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
