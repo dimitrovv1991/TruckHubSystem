@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TruckHubSystem.Core.Models.Booking;
 using TruckHubSystem.Core.Models.Driver;
+using TruckHubSystem.Core.Models.Factory;
 using TruckHubSystem.Infrastructure.Data;
 using TruckHubSystem.Infrastructure.Data.Models;
 
@@ -20,9 +22,19 @@ namespace TruckHubSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            var model = new AllDriversQueryModel();
+            var driversToDisplay = await data
+                .Drivers
+                .Select(d => new DriverFormModel()
+                {
+                    FirstName = d.FirstName,
+                    FamilyName = d.FamilyName,
+                    Id = d.Id,
+                    PhoneNumber = d.PhoneNumber,
+                    YearDrivingLicenseAcquired = d.YearDrivingLicenseAcquired
+                })
+                .ToListAsync();
 
-            return View(model);
+            return View(driversToDisplay);
         }
 
         [HttpGet]

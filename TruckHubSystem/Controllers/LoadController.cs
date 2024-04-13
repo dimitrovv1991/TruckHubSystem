@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TruckHubSystem.Core.Contracts.Factory;
 using TruckHubSystem.Core.Models.Booking;
@@ -23,15 +25,30 @@ namespace TruckHubSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int page=1)
         {
             var currentUserId = GetUserId();
+            int pageSize = 8;
 
-            IEnumerable<FactoryDetailsViewModel> factories;
+            IEnumerable<LoadDetailsViewModel> loads;
 
-            factories = await factoryService.AllFactoriesByUserIdAsync(currentUserId);
+            loads = await data
+                .Loads
+                .Select(l => new LoadDetailsViewModel()
+                {
+                    Id = l.Id,
+                    FactoryName = l.Factory.Name,
+                    LoadCategoryName = l.LoadCategory.Name,
+                    Name = l.Name,
+                    Weigth = l.Weigth
+                })
+            .ToListAsync();
 
-            return View(factories);
+            ViewBag.PageNumber = page;
+
+            var paginatedLoads = loads.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            return View(paginatedLoads);
         }
 
         [HttpGet]

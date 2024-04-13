@@ -129,8 +129,8 @@ namespace TruckHubSystem.Controllers
                 FactoryId = load.FactoryId
             };
 
-            await data.LoadsReceived.AddAsync(loadReceived);
-            await data.SaveChangesAsync();
+            //await data.LoadsReceived.AddAsync(loadReceived);
+            // await data.SaveChangesAsync();
 
             return RedirectToAction("Mine", "Factory");
         }

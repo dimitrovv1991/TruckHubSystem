@@ -8,7 +8,7 @@ namespace TruckHubSystem.Infrastructure.Constants
 {
     public class Messages
     {
-        public const string YearErrorMessage = "The year must be between {0} and the current year!";
+        public const string YearErrorMessage = "The year must be between {1} and the current year!";
 
         public const string LoadWeightErrorMessage = "Enter a valid weight for your load!";
 

@@ -5,6 +5,8 @@ namespace TruckHubSystem.Core.Models.Load
 {
     public class LoadFormModel
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "The Name field is required.")]
         [MaxLength(DataConstants.LoadNameMaxLength, ErrorMessage = "The Name field must be at most {1} characters long.")]
         public string Name { get; set; }
