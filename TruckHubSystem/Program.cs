@@ -1,7 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TruckHubSystem.Core.Contracts.Driver;
 using TruckHubSystem.Core.Contracts.Factory;
+using TruckHubSystem.Core.Contracts.Load;
+using TruckHubSystem.Core.Contracts.Truck;
+using TruckHubSystem.Core.Services.Driver;
 using TruckHubSystem.Core.Services.Factory;
+using TruckHubSystem.Core.Services.Load;
+using TruckHubSystem.Core.Services.Truck;
 using TruckHubSystem.Infrastructure.Data;
 using TruckHubSystem.Infrastructure.Data.Common;
 
@@ -13,6 +19,9 @@ builder.Services.AddDbContext<TruckHubDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IFactoryService, FactoryService>();
+builder.Services.AddScoped<ILoadService, LoadService>();
+builder.Services.AddScoped<ITruckService, TruckService>();
+builder.Services.AddScoped<IDriverService, DriverService>();
 
 builder.Services.AddScoped<IRepository, Repository>();
 
