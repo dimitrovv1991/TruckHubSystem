@@ -6,6 +6,7 @@ using static TruckHubSystem.Infrastructure.Constants.Messages;
 
 namespace TruckHubSystem.Infrastructure.Data.Models
 {
+    [Index(nameof(PhoneNumber), IsUnique = true)]
     [Comment("Driver")]
     public class Driver
     {
