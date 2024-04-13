@@ -1,0 +1,25 @@
+﻿@model IEnumerable<LoadDetailsViewModel>
+
+@{
+    ViewBag.Title = "Select Load";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="text-center row">
+    @foreach (var load in Model)
+    {
+        <div class="card col-4" style="width: 20rem;">
+            <div class="card-body">
+                <h3 class="card-title mt-1">Load: @load.Name</h3>
+                <p class="card-text mt-1">Category: @load.LoadCategoryName</p>
+                <h5 class="card-text mt-1">Factory: @load.FactoryName</h5>
+                <p class="card-text mt-1">Weight in kg: @load.Weigth</p>
+            </div>
+            <form asp-action="SelectLoad" method="post">
+                <input type="hidden" name="selectedLoadId" value="@load.Id" />
+                <button type="submit">Select</button>
+            </form>
+        </div>
+    }
+</div>

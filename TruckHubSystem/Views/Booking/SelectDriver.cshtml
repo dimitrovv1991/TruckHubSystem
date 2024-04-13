@@ -1,0 +1,29 @@
+﻿@model ICollection<DriverDetailsViewModel>
+
+@{
+    ViewBag.Title = "Select Driver";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="text-center row">
+    @foreach (var driver in Model)
+    {
+        <div class="card col-4" style="width: 20rem;">
+            <div class="card-body">
+                <h4 class="card-title mt-1">@driver.FirstName</h4>
+                <p class="card-text mt-1">@driver.FamilyName</p>
+                <p class="card-text mt-1">Driver since: @driver.YearDrivingLicenseAcquired</p>
+            </div>
+            <form asp-action="SelectDriver" method="post">
+                <input type="hidden" name="selectedDriverId" value="@driver.Id" />
+                <button type="submit" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Select Driver</button>
+            </form>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
