@@ -12,6 +12,8 @@ namespace TruckHubSystem.Core.Contracts.Load
     {
         Task<IEnumerable<LoadDetailsViewModel>> AllAvailableLoadsAsync();
 
+        Task<IEnumerable<LoadDetailsViewModel>> AllAvailableLoadsFromOtherUsersFactories(string id);
+
         Task<LoadDetailsViewModel> SelectLoadById(int id);
     }
 }

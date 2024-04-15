@@ -34,6 +34,21 @@ namespace TruckHubSystem.Core.Services.Load
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<LoadDetailsViewModel>> AllAvailableLoadsFromOtherUsersFactories(string id)
+        {
+            return await repository.AllReadOnly<Infrastructure.Data.Models.Load>()
+                .Where(l=>l.Factory.CreatorId!=id)
+                .Select(l => new LoadDetailsViewModel()
+                {
+                    Name = l.Name,
+                    Weigth = l.Weigth,
+                    Id = l.Id,
+                    LoadCategoryName = l.LoadCategory.Name,
+                    FactoryName = l.Factory.Name
+                })
+                .ToListAsync();
+        }
+
         public async Task<LoadDetailsViewModel> SelectLoadById(int id)
         {
             return await repository.AllReadOnly<Infrastructure.Data.Models.Load>()
