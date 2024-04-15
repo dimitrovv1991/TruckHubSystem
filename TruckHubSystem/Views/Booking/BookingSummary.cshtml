@@ -1,4 +1,4 @@
-﻿@model BookingDetailsFormModel
+﻿@model BookingFormModel
 
 @{
     ViewData["Title"] = "Booking Summary";
@@ -37,4 +37,18 @@
         <dt class="col-sm-2">Last Name</dt>
         <dd class="col-sm-10">@Model.DriverLastName</dd>
     </dl>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="BookingSummary" method="post">
+            <input type="hidden" asp-for="SelectedLoadId" />
+            <input type="hidden" asp-for="SelectedTruckId" />
+            <input type="hidden" asp-for="SelectedDriverId" />
+            <input type="submit" value="Confirm" class="btn btn-primary" />
+        </form>
+    </div>
+    <div class="col-md-6">
+        <a asp-action="SelectLoad" class="btn btn-secondary">Edit</a>
+    </div>
 </div>
