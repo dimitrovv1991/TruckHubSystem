@@ -59,6 +59,7 @@ namespace TruckHubSystem.Core.Services.Load
                     Weigth = l.Weigth,
                     Id = l.Id,
                     FactoryName=l.Factory.Name,
+                    FactoryId = l.FactoryId,
                     LoadCategoryName=l.LoadCategory.Name
                 })
                 .FirstAsync();

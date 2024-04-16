@@ -17,7 +17,6 @@ namespace TruckHubSystem.Core.Contracts.Factory
         Task<IEnumerable<string>> AllCategoriesNamesAsync();
 
         ICollection<LoadCategoryServiceModel> GetCategories();
-
-
+        Task AddSentLoadToTheOriginFactory(LoadDetailsViewModel load);
     }
 }

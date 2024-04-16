@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TruckHubSystem.Core.Contracts.Booking;
 using TruckHubSystem.Core.Contracts.Driver;
+using TruckHubSystem.Core.Contracts.Factory;
 using TruckHubSystem.Core.Contracts.Load;
 using TruckHubSystem.Core.Contracts.Truck;
 using TruckHubSystem.Core.Models.Booking;
 using TruckHubSystem.Core.Models.Factory;
+using TruckHubSystem.Core.Services.Factory;
 using TruckHubSystem.Infrastructure.Data;
 using TruckHubSystem.Infrastructure.Data.Models;
 
@@ -20,6 +22,7 @@ namespace TruckHubSystem.Controllers
         private readonly ITruckService truckService;
         private readonly IDriverService driverService;
         private readonly IBookingService bookingService;
+        private readonly IFactoryService factoryService;
         private readonly TruckHubDbContext data;
 
 
@@ -27,12 +30,14 @@ namespace TruckHubSystem.Controllers
             ITruckService _truckService,
             IDriverService _driverService,
             IBookingService _bookingService,
+            IFactoryService _factoryService,
             TruckHubDbContext _data)
         {
             loadService = _loadService;
             truckService = _truckService;
             driverService = _driverService;
             bookingService = _bookingService;
+            factoryService = _factoryService;
             data = _data;
         }
 
@@ -88,7 +93,9 @@ namespace TruckHubSystem.Controllers
             var selectedLoad = await loadService.SelectLoadById(selectedLoadId);
             var selectedTruck = await truckService.SelectedTruckById(selectedTruckId);
             var selectedDriver = await driverService.SelectedDriverById(selectedDriverId);
-            
+
+
+            await factoryService.AddSentLoadToTheOriginFactory(selectedLoad);
             await bookingService.CreateBookingAsync(selectedLoad, selectedTruck, selectedDriver);
 
             
@@ -175,10 +182,10 @@ namespace TruckHubSystem.Controllers
                    LoadName = b.Load.Name,
 
                })
-               .Where(b => b.CreatorId == currentUserId)
+               //.Where(b => b.CreatorId == currentUserId)
                .ToListAsync();
 
-            return View(factories);
+            return View(bookings);
         }
 
         private string GetUserId()

@@ -25,6 +25,17 @@ namespace TruckHubSystem.Core.Services.Factory
 
         }
 
+        public async Task AddSentLoadToTheOriginFactory(LoadDetailsViewModel load)
+        {
+            var loadSent = new LoadSent
+            {
+                FactoryId = load.FactoryId,
+                LoadId = load.Id
+            };
+
+            repository.AddAsync(loadSent);
+        }
+
         public async Task<IEnumerable<LoadCategoryServiceModel>> AllCategoriesAsync()
         {
             return await repository.AllReadOnly<LoadCategory>()
@@ -72,6 +83,10 @@ namespace TruckHubSystem.Core.Services.Factory
                     Name = c.Name,
                 })
                 .ToList();
+        }
+
+        public async Task LoadOriginFactoryById(int id, LoadDetailsViewModel load)
+        {
         }
     }
 }

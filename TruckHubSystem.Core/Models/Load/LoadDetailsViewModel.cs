@@ -15,6 +15,8 @@ namespace TruckHubSystem.Core.Models.Load
 
         public string FactoryName { get; set; }
 
+        public int FactoryId {  get; set; }
+
         public List<LoadCategoryServiceModel> LoadCategories { get; set; } = new List<LoadCategoryServiceModel>();
     }
 }
