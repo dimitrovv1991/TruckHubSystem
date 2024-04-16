@@ -35,5 +35,8 @@ namespace TruckHubSystem.Infrastructure.Data.Models
         [ForeignKey(nameof(FactoryId))]
         public Factory Factory {  get; set; } = null!;
 
+        [Required]
+        [Comment("Is load available")]
+        public bool IsLoadAvailable { get; set; } = true;
     }
 }

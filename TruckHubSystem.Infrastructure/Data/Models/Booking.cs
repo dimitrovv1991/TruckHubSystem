@@ -40,6 +40,7 @@ namespace TruckHubSystem.Infrastructure.Data.Models
         [ForeignKey(nameof(BookingStatusId))]
         public BookingStatus BookingStatus { get; set; } = null!;
 
+
         [MaxLength(BookingNotesMaxLength)]
         public string Notes { get; set; } = string.Empty;
     }

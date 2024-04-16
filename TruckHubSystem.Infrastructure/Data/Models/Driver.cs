@@ -33,5 +33,9 @@ namespace TruckHubSystem.Infrastructure.Data.Models
         [Required]
         [YearRange(MinYearDrivingLicenceAcquired, ErrorMessage = YearErrorMessage)]
         public int YearDrivingLicenseAcquired { get; set; }
+
+        [Required]
+        [Comment("Is driver available")]
+        public bool IsDriverAvailable { get; set; } = true;
     }
 }
