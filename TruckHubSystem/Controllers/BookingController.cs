@@ -94,9 +94,9 @@ namespace TruckHubSystem.Controllers
             var selectedTruck = await truckService.SelectedTruckById(selectedTruckId);
             var selectedDriver = await driverService.SelectedDriverById(selectedDriverId);
 
-
+            var currentUserId = GetUserId();
             await factoryService.AddSentLoadToTheOriginFactory(selectedLoad);
-            await bookingService.CreateBookingAsync(selectedLoad, selectedTruck, selectedDriver);
+            await bookingService.CreateBookingAsync(selectedLoad, selectedTruck, selectedDriver, currentUserId);
 
             
             return RedirectToAction("Index", "Home");
@@ -177,12 +177,16 @@ namespace TruckHubSystem.Controllers
             var bookings = await data.Bookings
                .Select(b => new BookingDetailsFormModel()
                {
+                   BookingCreatorId = b.BookingCreatorId,
                    DriverFirstName = b.Driver.FirstName,
                    DriverLastName = b.Driver.FamilyName,
+                   TruckPlateNumber = b.Truck.LicensePlate,
+                   LoadingFactoryName = b.Load.Factory.Name,
+                   LoadingCityName = b.Load.Factory.Location,
                    LoadName = b.Load.Name,
-
+                   LoadWeigth = b.Load.Weigth                   
                })
-               //.Where(b => b.CreatorId == currentUserId)
+               .Where(b => b.BookingCreatorId == currentUserId)
                .ToListAsync();
 
             return View(bookings);

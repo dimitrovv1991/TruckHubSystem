@@ -14,6 +14,7 @@ namespace TruckHubSystem.Core.Contracts.Booking
         public Task<Infrastructure.Data.Models.Booking> CreateBookingAsync(
             LoadDetailsViewModel selectedLoad,
             TruckDetailsViewModel selectedTruck,
-            DriverDetailsViewModel selectedDriver);
+            DriverDetailsViewModel selectedDriver,
+            string creator);
     }
 }

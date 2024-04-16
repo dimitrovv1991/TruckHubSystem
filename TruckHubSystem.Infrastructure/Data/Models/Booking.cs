@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static TruckHubSystem.Infrastructure.Constants.DataConstants;
@@ -39,6 +40,11 @@ namespace TruckHubSystem.Infrastructure.Data.Models
 
         [ForeignKey(nameof(BookingStatusId))]
         public BookingStatus BookingStatus { get; set; } = null!;
+
+
+        [Required]
+        [Comment("Booking creator identifier")]
+        public string BookingCreatorId { get; set; }
 
 
         [MaxLength(BookingNotesMaxLength)]

@@ -45,7 +45,8 @@ namespace TruckHubSystem.Controllers
                 })
                 .Where(f=>f.CreatorId==currentUserId)
                 .ToListAsync();
-         
+            ;
+
             return View(factories);
         }
 

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<BookingDetailsFormModel>
+
+@{
+    ViewData["Title"] = "My Bookings";
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr />
+
+@if (!Model.Any())
+{
+    <p>No bookings found.</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Driver</th>
+                    <th>Truck Plate Number</th>
+                    <th>Factory Name</th>
+                    <th>City</th>
+                    <th>Load Name</th>
+                    <th>Load Weight</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var booking in Model)
+                {
+                    <tr>
+                        <td>@($"{booking.DriverFirstName} {booking.DriverLastName}")</td>
+                        <td>@booking.TruckPlateNumber</td>
+                        <td>@booking.LoadingFactoryName</td>
+                        <td>@booking.LoadingCityName</td>
+                        <td>@booking.LoadName</td>
+                        <td>@booking.LoadWeigth</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

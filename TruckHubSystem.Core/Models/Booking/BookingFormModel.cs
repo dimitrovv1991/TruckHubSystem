@@ -16,7 +16,6 @@
         public string DriverFirstName { get; set; }
 
         public string DriverLastName { get; set; }
-
         public int SelectedLoadId { get; set; }
         public int SelectedTruckId { get; set; }
         public int SelectedDriverId { get; set; }

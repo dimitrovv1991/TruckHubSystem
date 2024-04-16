@@ -23,10 +23,12 @@ namespace TruckHubSystem.Core.Services.Booking
         public async Task<Infrastructure.Data.Models.Booking> CreateBookingAsync(
             LoadDetailsViewModel selectedLoad, 
             TruckDetailsViewModel selectedTruck, 
-            DriverDetailsViewModel selectedDriver)
+            DriverDetailsViewModel selectedDriver,
+            string creator)
         {
             var booking = new Infrastructure.Data.Models.Booking
             {
+                BookingCreatorId = creator,
                 DriverId = selectedDriver.Id,
                 LoadId = selectedLoad.Id,
                 TruckId = selectedTruck.Id,

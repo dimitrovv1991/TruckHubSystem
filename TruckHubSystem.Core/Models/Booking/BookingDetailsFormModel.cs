@@ -8,6 +8,8 @@
         public int LoadWeigth { get; set; }
         public string LoadingFactoryName { get; set; }
 
+        public string LoadingCityName { get; set; }
+
         public string TruckManufacturer {  get; set; }
 
         public string TruckPlateNumber {  get; set; }
@@ -17,5 +19,7 @@
         public string DriverFirstName {  get; set; }
 
         public string DriverLastName { get; set; }
+
+        public string BookingCreatorId {  get; set; }
     }
 }
