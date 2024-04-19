@@ -9,6 +9,9 @@ using TruckHubSystem.Infrastructure.Data.Models;
 using TruckHubSystem.Core.Contracts.Factory;
 using TruckHubSystem.Core.Models.Load;
 using TruckHubSystem.Infrastructure.Data.Common;
+using TruckHubSystem.Core.Services.Load;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using TruckHubSystem.Core.Contracts.Load;
 
 namespace TruckHubSystem.Controllers
 {
@@ -17,13 +20,16 @@ namespace TruckHubSystem.Controllers
     {
         private readonly TruckHubDbContext data;
         private readonly IFactoryService factoryService;
+        private readonly ILoadService loadService;
 
         public FactoryController(
             TruckHubDbContext context,
-            IFactoryService _factoryService)
+            IFactoryService _factoryService,
+            ILoadService _loadService)
         {
             data = context;
             factoryService = _factoryService;
+            loadService = _loadService;
         }
 
         [HttpGet]
@@ -40,7 +46,7 @@ namespace TruckHubSystem.Controllers
                     Location = f.Location,
                     LoadsReceived = data.LoadsReceived.Count(l => l.FactoryId == f.Id),
                     LoadsSent = data.LoadsSent.Count(l => l.FactoryId == f.Id),
-                    CurrentLoads = data.Loads.Count(l => l.FactoryId == f.Id),
+                    CurrentLoads = data.CurrentLoads.Count(l => l.FactoryId == f.Id),
                     CreatorId = f.CreatorId
                 })
                 .Where(f=>f.CreatorId==currentUserId)
@@ -61,7 +67,7 @@ namespace TruckHubSystem.Controllers
                     Location = f.Location,
                     LoadsReceived = data.LoadsReceived.Count(l => l.FactoryId == f.Id),
                     LoadsSent = data.LoadsSent.Count(l => l.FactoryId == f.Id),
-                    CurrentLoads = data.Loads.Count(l=>l.FactoryId == f.Id)
+                    CurrentLoads = data.CurrentLoads.Count(l=>l.FactoryId == f.Id)
                 })
                 .ToListAsync();
 
@@ -94,11 +100,6 @@ namespace TruckHubSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> AddLoad(LoadFormModel model)
         {
-            if (!GetCategories().Any(s => s.Id == model.LoadCategoryId))
-            {
-                ModelState.AddModelError(nameof(model.LoadCategoryId), "Category does not exist!");
-            }
-
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -110,14 +111,14 @@ namespace TruckHubSystem.Controllers
                 Name = model.Name,
                 LoadCategoryId = model.LoadCategoryId,
                 FactoryId = model.FactoryId,
-                Weigth = model.Weigth                
+                Weigth = model.Weigth
             };
 
             var currentFactory = data
                 .Factories
-                .FirstOrDefault(fi=>fi.Id == loadToAdd.FactoryId);
+                .FirstOrDefault(fi => fi.Id == loadToAdd.FactoryId);
 
-            currentFactory.LoadsReceived.Add(loadToAdd);           
+            currentFactory.LoadsReceived.Add(loadToAdd);
 
             await data.Loads.AddAsync(loadToAdd);
             await data.SaveChangesAsync();
@@ -129,6 +130,8 @@ namespace TruckHubSystem.Controllers
                 LoadId = load.Id,
                 FactoryId = load.FactoryId
             };
+
+            loadService.AddLoadToCurrentLoads(load);
 
             //await data.LoadsReceived.AddAsync(loadReceived);
             // await data.SaveChangesAsync();

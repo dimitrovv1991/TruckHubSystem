@@ -55,29 +55,22 @@ namespace TruckHubSystem.Controllers
             var selectedLoadId = (int)TempData["SelectedLoadId"];
             var selectedTruckId = (int)TempData["SelectedTruckId"];
             var selectedDriverId = (int)TempData["SelectedDriverId"];
-
-
-            var loadTruckDriver = new List<int> { selectedLoadId, selectedTruckId, selectedDriverId};
+            var selectedFactoryId = (int)TempData["SelectedFactoryId"];
 
 
             var selectedLoad = await loadService.SelectLoadById(selectedLoadId);
             var selectedTruck = await truckService.SelectedTruckById(selectedTruckId);
             var selectedDriver = await driverService.SelectedDriverById(selectedDriverId);
+            var selectedFactory = await factoryService.SelectedFactoryById(selectedFactoryId);
 
-            var bookingModel = new BookingFormModel
-            {
-                LoadName = selectedLoad.Name,
-                LoadingFactoryName = selectedLoad.FactoryName,
-                LoadWeigth = selectedLoad.Weigth,
-                TruckManufacturer = selectedTruck.Manufacturer,
-                TruckImage = selectedTruck.ImageUrl,
-                TruckPlateNumber = selectedTruck.LicensePlate,
-                DriverFirstName = selectedDriver.FirstName,
-                DriverLastName = selectedDriver.FamilyName,
-                SelectedDriverId = selectedDriverId,
-                SelectedLoadId = selectedLoadId,
-                SelectedTruckId = selectedTruckId
-            };
+            ;
+
+            var bookingModel = 
+                await bookingService.CreateBookingSummaryModel(
+                    selectedLoad, selectedTruck, selectedDriver, selectedFactory);
+            var currentUserFactories =  await data.Factories.Where(f => f.CreatorId == GetUserId()).ToListAsync();
+
+            ViewBag.UserFactories = currentUserFactories;
 
             return View(bookingModel);
         }
@@ -89,16 +82,25 @@ namespace TruckHubSystem.Controllers
             int selectedLoadId = bookingModel.SelectedLoadId;
             int selectedTruckId = bookingModel.SelectedTruckId;
             int selectedDriverId = bookingModel.SelectedDriverId;
+            int selectedFactoryId = bookingModel.SelectedFactoryId;
 
             var selectedLoad = await loadService.SelectLoadById(selectedLoadId);
             var selectedTruck = await truckService.SelectedTruckById(selectedTruckId);
             var selectedDriver = await driverService.SelectedDriverById(selectedDriverId);
+            var selectedFactory = await factoryService.SelectedFactoryById(selectedFactoryId);
 
             var currentUserId = GetUserId();
-            await factoryService.AddSentLoadToTheOriginFactory(selectedLoad);
-            await bookingService.CreateBookingAsync(selectedLoad, selectedTruck, selectedDriver, currentUserId);
+            await truckService.TruckNotAvailable(selectedTruckId);
+            await loadService.LoadNotAvailable(selectedLoadId);
+            await driverService.DriverNotAvailable(selectedDriverId);
 
-            
+
+            await factoryService.AddSentLoadToTheOriginFactory(selectedLoad);
+            await bookingService.CreateBookingAsync(
+                selectedLoad, selectedTruck, selectedDriver, selectedFactory, currentUserId);
+
+            ;
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -115,6 +117,34 @@ namespace TruckHubSystem.Controllers
             return RedirectToAction(nameof(BookingSummary), new { id = 1 });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> SelectFactory()
+        {
+            var currentUserId = GetUserId();
+
+
+            var factories = await data.Factories
+               .Select(f => new FactoryDetailsViewModel()
+               {
+                   Id = f.Id,
+                   Name = f.Name,
+                   Location = f.Location,
+                   CreatorId = f.CreatorId
+               })
+               .Where(f => f.CreatorId == currentUserId)
+               .ToListAsync();
+            ;
+
+            return View(factories);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SelectFactory(int selectedFactoryId)
+        {
+            TempData["SelectedFactoryId"] = selectedFactoryId;
+
+            return RedirectToAction("SelectLoad");
+        }
 
         [HttpGet]
         public async Task<IActionResult> SelectLoad ()
@@ -130,6 +160,7 @@ namespace TruckHubSystem.Controllers
         public async Task<IActionResult> SelectLoad(int selectedLoadId)
         {
             TempData["SelectedLoadId"] = selectedLoadId;
+            TempData.Keep("SelectedFactoryId");
 
             return RedirectToAction("SelectTruck");
         }
@@ -146,6 +177,7 @@ namespace TruckHubSystem.Controllers
         public async Task<IActionResult> SelectTruck(int selectedTruckId)
         {
             TempData["SelectedTruckId"] = selectedTruckId;
+            TempData.Keep("SelectedFactoryId");
             TempData.Keep("SelectedLoadId");
             return RedirectToAction("SelectDriver");
         }
@@ -164,6 +196,7 @@ namespace TruckHubSystem.Controllers
             TempData["SelectedDriverId"] = selectedDriverId;
             TempData.Keep("SelectedLoadId");
             TempData.Keep("SelectedTruckId");
+            TempData.Keep("SelectedFactoryId");
 
             return RedirectToAction("BookingSummary");
         }
@@ -171,25 +204,40 @@ namespace TruckHubSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
-            var currentUserId = GetUserId();
-
-
-            var bookings = await data.Bookings
-               .Select(b => new BookingDetailsFormModel()
-               {
-                   BookingCreatorId = b.BookingCreatorId,
-                   DriverFirstName = b.Driver.FirstName,
-                   DriverLastName = b.Driver.FamilyName,
-                   TruckPlateNumber = b.Truck.LicensePlate,
-                   LoadingFactoryName = b.Load.Factory.Name,
-                   LoadingCityName = b.Load.Factory.Location,
-                   LoadName = b.Load.Name,
-                   LoadWeigth = b.Load.Weigth                   
-               })
-               .Where(b => b.BookingCreatorId == currentUserId)
-               .ToListAsync();
+            var bookings = await bookingService.GetMyActiveBookings(GetUserId());
 
             return View(bookings);
+        }
+
+        public async Task<IActionResult> Receive(int id)
+        {
+            var booking = await data.Bookings
+                .Select(b=> new BookingDetailsFormModel
+                {
+                    Id=b.Id,
+                    TruckPlateNumber = b.Truck.LicensePlate,
+                    LoadName = b.Load.Name,
+                    LoadWeigth = b.Load.Weigth
+                })
+                .Where(b=>b.Id == id)
+                .FirstAsync();
+
+            
+
+            return View(booking);
+        }
+
+        public async Task<IActionResult> ReceiveConfirmed(int id)
+        {
+            var currentBooking = data.Bookings.FirstOrDefault(b => b.Id == id);
+
+            await bookingService.BookingReceived(id);
+            await truckService.TruckAvailable(currentBooking.TruckId);
+            await driverService.DriverAvailable(currentBooking.DriverId);
+            await factoryService.DeleteSentLoadFromTheOriginFactory(currentBooking.LoadId);
+            await factoryService.AddReceivedLoad(currentBooking.LoadId, currentBooking.ReceivingFactoryId);
+
+            return RedirectToAction("Mine");
         }
 
         private string GetUserId()
