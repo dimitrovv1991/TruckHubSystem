@@ -35,6 +35,13 @@ namespace TruckHubSystem.Infrastructure.Data.Models
         public Driver Driver { get; set; } = null!;
 
         [Required]
+        [Comment("Receiving factory identifier")]
+        public int ReceivingFactoryId { get; set; }
+
+        [ForeignKey(nameof(ReceivingFactoryId))]
+        public Factory ReceivingFactory { get; set; } = null!;
+
+        [Required]
         [Comment("Booking status identifier")]
         public int BookingStatusId {  get; set; }
 

@@ -23,6 +23,7 @@ namespace TruckHubSystem.Infrastructure.Data
         public DbSet<LoadCategory> LoadCategories { get; set; } = null!;
 
         public DbSet<LoadReceived> LoadsReceived {  get; set; } = null!;
+        public DbSet<CurrentLoad> CurrentLoads {  get; set; } = null!;
         public DbSet<LoadSent> LoadsSent {  get; set; } = null!;
 
         public DbSet<Truck> Trucks { get; set; } = null!;
@@ -60,6 +61,21 @@ namespace TruckHubSystem.Infrastructure.Data
                 .HasForeignKey(lr => lr.LoadId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<CurrentLoad>()
+                .HasKey(cl => cl.Id);
+
+            builder.Entity<CurrentLoad>()
+                .HasOne(cl => cl.Factory)
+                .WithMany()
+                .HasForeignKey(lr => lr.FactoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            builder.Entity<CurrentLoad>()
+                .HasOne(cl => cl.Load)
+                .WithMany()
+                .HasForeignKey(cl => cl.LoadId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .Entity<BookingStatus>()
