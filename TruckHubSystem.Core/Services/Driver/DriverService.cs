@@ -27,9 +27,36 @@ namespace TruckHubSystem.Core.Services.Driver
                     FirstName = d.FirstName,
                     FamilyName = d.FamilyName,
                     PhoneNumber = d.PhoneNumber,
-                    YearDrivingLicenseAcquired = d.YearDrivingLicenseAcquired
+                    YearDrivingLicenseAcquired = d.YearDrivingLicenseAcquired,
+                    IsDriverAvailable = d.IsDriverAvailable                    
                 })
                 .ToListAsync();
+        }
+
+        public async Task DriverAvailable(int id)
+        {
+            Infrastructure.Data.Models.Driver driver =
+                await repository.GetByIdAsync<Infrastructure.Data.Models.Driver>(id);
+
+            if (driver != null)
+            {
+                driver.IsDriverAvailable = true;
+
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task DriverNotAvailable(int id)
+        {
+            Infrastructure.Data.Models.Driver driver = 
+                await repository.GetByIdAsync<Infrastructure.Data.Models.Driver>(id);
+
+            if (driver != null)
+            {
+                driver.IsDriverAvailable = false;
+
+                await repository.SaveChangesAsync();
+            }
         }
 
         public async Task<DriverDetailsViewModel> SelectedDriverById(int id)

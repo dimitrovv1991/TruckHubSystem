@@ -53,5 +53,29 @@ namespace TruckHubSystem.Core.Services.Truck
                 })
                 .FirstAsync();
         }
+
+        public async Task TruckAvailable(int id)
+        {
+            Infrastructure.Data.Models.Truck truck = await repository.GetByIdAsync<Infrastructure.Data.Models.Truck>(id);
+
+            if (truck != null)
+            {
+                truck.Available = true;
+
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task TruckNotAvailable(int id)
+        {
+            Infrastructure.Data.Models.Truck truck = await repository.GetByIdAsync<Infrastructure.Data.Models.Truck>(id);
+
+            if (truck!=null)
+            {
+                truck.Available = false;
+
+                await repository.SaveChangesAsync();
+            }
+        }
     }
 }
