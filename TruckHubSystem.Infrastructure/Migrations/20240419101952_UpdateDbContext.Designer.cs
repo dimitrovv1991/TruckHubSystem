@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TruckHubSystem.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using TruckHubSystem.Infrastructure.Data;
 namespace TruckHubSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(TruckHubDbContext))]
-    partial class TruckHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240419101952_UpdateDbContext")]
+    partial class UpdateDbContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -254,10 +256,6 @@ namespace TruckHubSystem.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("ReceivingFactoryId")
-                        .HasColumnType("int")
-                        .HasComment("Receiving factory identifier");
-
                     b.Property<int>("TruckId")
                         .HasColumnType("int")
                         .HasComment("Truck identifier");
@@ -269,8 +267,6 @@ namespace TruckHubSystem.Infrastructure.Migrations
                     b.HasIndex("DriverId");
 
                     b.HasIndex("LoadId");
-
-                    b.HasIndex("ReceivingFactoryId");
 
                     b.HasIndex("TruckId");
 
@@ -688,12 +684,6 @@ namespace TruckHubSystem.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TruckHubSystem.Infrastructure.Data.Models.Factory", "ReceivingFactory")
-                        .WithMany()
-                        .HasForeignKey("ReceivingFactoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("TruckHubSystem.Infrastructure.Data.Models.Truck", "Truck")
                         .WithMany()
                         .HasForeignKey("TruckId")
@@ -705,8 +695,6 @@ namespace TruckHubSystem.Infrastructure.Migrations
                     b.Navigation("Driver");
 
                     b.Navigation("Load");
-
-                    b.Navigation("ReceivingFactory");
 
                     b.Navigation("Truck");
                 });
