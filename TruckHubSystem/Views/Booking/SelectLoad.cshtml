@@ -7,7 +7,7 @@
 <hr />
 
 <div class="text-center row">
-    @foreach (var load in Model)
+    @foreach (var load in Model.Where(l=>l.IsLoadAvailable==true))
     {
         <div class="card col-4" style="width: 20rem;">
             <div class="card-body">

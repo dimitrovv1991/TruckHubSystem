@@ -39,16 +39,28 @@
     </dl>
 </div>
 
+<div>
+    <h4>Factory Details</h4>
+    <dl class="row">
+        <dt class="col-sm-2">Factory Name</dt>
+        <dd class="col-sm-10">@Model.FactoryName</dd>
+        <dt class="col-sm-2">Factory location</dt>
+        <dd class="col-sm-10">@Model.FactoryLocation</dd>
+    </dl>
+</div>
+
+
 <div class="row">
     <div class="col-md-6">
         <form asp-action="BookingSummary" method="post">
             <input type="hidden" asp-for="SelectedLoadId" />
             <input type="hidden" asp-for="SelectedTruckId" />
             <input type="hidden" asp-for="SelectedDriverId" />
+            <input type="hidden" asp-for="SelectedFactoryId" />
             <input type="submit" value="Confirm" class="btn btn-primary" />
         </form>
     </div>
     <div class="col-md-6">
-        <a asp-action="SelectLoad" class="btn btn-secondary">Edit</a>
+        <a asp-action="SelectFactory" class="btn btn-secondary">Edit</a>
     </div>
 </div>

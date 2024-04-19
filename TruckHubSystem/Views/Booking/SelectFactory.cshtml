@@ -1,0 +1,31 @@
+﻿@model ICollection<FactoryDetailsViewModel>
+@{
+    var currentUserId = ViewBag.CurrentUserId;
+}
+@{
+    ViewBag.Title = "My factories";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    @foreach (var factory in Model)
+    {
+        <div class="card col-md-4" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">@factory.Name</h5>
+                <p class="card-text">Location: @factory.Location</p>
+                <p class="card-text">Loads Sent: @factory.LoadsSent</p>
+                <p class="card-text">Loads Received: @factory.LoadsReceived</p>
+                <p class="card-text">Current Loads: @factory.CurrentLoads</p>
+            </div>
+            <div class="card-footer">
+                <form asp-action="SelectFactory">
+                    <input type="hidden" name="selectedFactoryId" value="@factory.Id" />
+                    <button type="submit">Select</button>
+                </form>
+            </div>
+        </div>
+    }
+</div>

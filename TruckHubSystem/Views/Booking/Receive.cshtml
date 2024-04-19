@@ -1,0 +1,45 @@
+﻿@model BookingDetailsFormModel
+
+@{
+    ViewData["Title"] = "Booking Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr />
+
+<div>
+    <h4>Truck Details</h4>
+    <dl class="row">
+        <dt class="col-sm-2">License Plate</dt>
+        <dd class="col-sm-10">@Model.TruckPlateNumber</dd>
+    </dl>
+</div>
+
+<div>
+    <h4>Load Details</h4>
+    <dl class="row">
+        <dt class="col-sm-2">Name</dt>
+        <dd class="col-sm-10">@Model.LoadName</dd>
+        <dt class="col-sm-2">Weight</dt>
+        <dd class="col-sm-10">@Model.LoadWeigth</dd>
+    </dl>
+</div>
+
+
+<div>
+    <button id="confirmButton" class="btn btn-danger">Confirm Received</button>
+</div>
+
+<script>
+    document.getElementById("confirmButton").addEventListener("click", function () {
+        var result = confirm("Are you sure you want to perform this action?");
+        if (result == true) {
+            var bookingId = @Model.Id;
+
+            window.location.href = "/Booking/ReceiveConfirmed?id=" + bookingId;
+        }
+        else {
+            window.location.href = "/Booking/Mine";
+        }
+    });
+</script>

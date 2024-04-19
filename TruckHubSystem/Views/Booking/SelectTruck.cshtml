@@ -7,7 +7,7 @@
 <hr />
 
 <div class="text-center row">
-    @foreach (var truck in Model)
+    @foreach (var truck in Model.Where(t=>t.Available==true))
     {
         <div class="card col-4" style="width: 20rem;">
             <img src="@truck.ImageUrl" class="card-img-top" alt="Truck Image">

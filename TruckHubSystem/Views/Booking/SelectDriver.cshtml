@@ -8,7 +8,7 @@
 <hr />
 
 <div class="text-center row">
-    @foreach (var driver in Model)
+    @foreach (var driver in Model.Where(d=>d.IsDriverAvailable==true))
     {
         <div class="card col-4" style="width: 20rem;">
             <div class="card-body">
