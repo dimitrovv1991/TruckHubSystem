@@ -15,5 +15,9 @@ namespace TruckHubSystem.Core.Contracts.Load
         Task<IEnumerable<LoadDetailsViewModel>> AllAvailableLoadsFromOtherUsersFactories(string id);
 
         Task<LoadDetailsViewModel> SelectLoadById(int id);
+        Task LoadNotAvailable(int id);
+        Task AddLoadToCurrentLoads(Infrastructure.Data.Models.Load currentLoadToAdd);
+
+        Task<Infrastructure.Data.Models.Load> AddLoad(Infrastructure.Data.Models.Load loadToAdd);
     }
 }

@@ -12,5 +12,9 @@ namespace TruckHubSystem.Core.Contracts.Truck
         Task<IEnumerable<TruckDetailsViewModel>> AllAvailableTrucksAsync();
 
         Task<TruckDetailsViewModel> SelectedTruckById(int id);
+
+        Task TruckNotAvailable(int id);
+        Task TruckAvailable(int id);
+
     }
 }

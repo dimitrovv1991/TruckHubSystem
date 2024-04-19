@@ -13,5 +13,11 @@ namespace TruckHubSystem.Core.Contracts.Driver
         Task<IEnumerable<DriverDetailsViewModel>> AllAvailableDriversAsync();
 
         Task<DriverDetailsViewModel> SelectedDriverById(int id);
+
+        Task DriverNotAvailable(int id);
+
+        Task DriverAvailable(int id);
+
+
     }
 }
