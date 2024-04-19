@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using TruckHubSystem.Infrastructure.Constants;
 
 namespace TruckHubSystem.Core.Models.Load
@@ -16,6 +17,8 @@ namespace TruckHubSystem.Core.Models.Load
         public string FactoryName { get; set; }
 
         public int FactoryId {  get; set; }
+
+        public bool IsLoadAvailable { get; set; }
 
         public List<LoadCategoryServiceModel> LoadCategories { get; set; } = new List<LoadCategoryServiceModel>();
     }

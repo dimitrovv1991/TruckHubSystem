@@ -30,6 +30,6 @@ namespace TruckHubSystem.Core.Models.Driver
         [YearRange(MinYearDrivingLicenceAcquired, ErrorMessage = YearErrorMessage)]
         public int YearDrivingLicenseAcquired { get; set; }
 
-
+        public bool IsDriverAvailable {  get; set; }
     }
 }
