@@ -42,9 +42,19 @@ namespace TruckHubSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery] AllBookingsQueryModel model)
         {
-            var model = new AllBookingsQueryModel();
+            var allBookings = await bookingService.AllAsync(
+                model.SearchTerm,
+                model.Sorting,
+                model.Status,
+                model.CurrentPage,
+                model.BookingsPerPage
+                );
+
+            model.TotalBookingsCount = allBookings.TotalBookingsCount;
+
+            model.Bookings = allBookings.Bookings;
 
             return View(model);
         }
@@ -98,8 +108,6 @@ namespace TruckHubSystem.Controllers
             await factoryService.AddSentLoadToTheOriginFactory(selectedLoad);
             await bookingService.CreateBookingAsync(
                 selectedLoad, selectedTruck, selectedDriver, selectedFactory, currentUserId);
-
-            ;
 
             return RedirectToAction("Index", "Home");
         }

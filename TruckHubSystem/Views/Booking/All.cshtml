@@ -5,3 +5,72 @@
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
+
+
+<form method="get">
+    <div class="row justify-content-center align-items-end">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="SearchTerm"></label>
+                <input asp-for="SearchTerm" class="form-control" placeholder="Search here...">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="Sorting"></label>
+                <select asp-for="Sorting" class="form-control">
+                    <option value="0">Newest</option>
+                    <option value="1">Oldest</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="Status"></label>
+                <select asp-for="Status" class="form-control">
+                    <option value="0">All</option>
+                    <option value="1">In progress</option>
+                    <option value="2">Finished</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <input type="submit" value="Search" class="btn btn-success w-100" />
+        </div>
+    </div>
+</form>
+
+@if (!Model.Bookings.Any())
+{
+    <h2 class="text-center mt-5">There aren't any bookings</h2>
+}
+
+else
+{
+    <div class="text-center mt-5">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Driver</th>
+                        <th>Truck Plate Number</th>
+                        <th>Sending Factory Name</th>
+                        <th>City</th>
+                        <th>Receiving Factory Name</th>
+                        <th>Receiving Factory City</th>
+                        <th>Load Name</th>
+                        <th>Load Weight</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var currentBooking in Model.Bookings)
+                    {
+                        <partial name="_BookingPartial" model="@currentBooking" />
+                    }
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+    <partial name="_BookingPagesPartial" model="@Model" />
+}

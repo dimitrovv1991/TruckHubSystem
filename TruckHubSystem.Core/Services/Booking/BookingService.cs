@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TruckHubSystem.Core.Contracts.Booking;
+using TruckHubSystem.Core.Enums;
 using TruckHubSystem.Core.Models.Booking;
 using TruckHubSystem.Core.Models.Driver;
 using TruckHubSystem.Core.Models.Factory;
@@ -22,6 +23,100 @@ namespace TruckHubSystem.Core.Services.Booking
         public BookingService(IRepository _repository)
         {
             repository = _repository;
+        }
+
+        public async Task<AllBookingsQueryModel> AllAsync(
+            string search = null, 
+            BookingSorting sorting = BookingSorting.Newest, 
+            BookingStatus status = BookingStatus.All,
+            int currentPage = 1, 
+            int bookingsPerPage = 8)
+        {
+            if (currentPage < 1)
+            {
+                currentPage = 1;
+            }
+
+            if (bookingsPerPage <= 0)
+            {
+                bookingsPerPage = 8;
+            }
+
+
+            var allBookings = repository.AllReadOnly<Infrastructure.Data.Models.Booking>();
+
+            if (status == BookingStatus.InProgress)
+            {
+                allBookings = allBookings
+                    .Where(b => b.BookingStatusId == 1);
+            }
+            else if (status == BookingStatus.Finished)
+            {
+                allBookings = allBookings
+                    .Where(b => b.BookingStatusId == 2);
+            }
+
+            if (search!=null)
+            {
+                string normalizedSearchTerm = search.ToLower();
+
+                allBookings = allBookings
+                .Where(b => normalizedSearchTerm.Contains(b.Load.Name.ToLower())
+                || normalizedSearchTerm.Contains(b.Load.Factory.Location.ToLower())
+                || normalizedSearchTerm.Contains(b.Load.Factory.Name.ToLower())
+                || normalizedSearchTerm.Contains(b.ReceivingFactory.Location.ToLower())
+                || normalizedSearchTerm.Contains(b.ReceivingFactory.Name.ToLower())
+                || normalizedSearchTerm.Contains(b.Truck.LicensePlate.ToLower())
+                || normalizedSearchTerm.Contains(b.Driver.FirstName.ToLower())
+                || normalizedSearchTerm.Contains(b.Driver.FamilyName.ToLower())
+
+
+                || b.Load.Name.ToLower().Contains(normalizedSearchTerm)
+                || b.Load.Factory.Location.ToLower().Contains(normalizedSearchTerm)
+                || b.Load.Factory.Name.ToLower().Contains(normalizedSearchTerm)
+                || b.ReceivingFactory.Location.ToLower().Contains(normalizedSearchTerm)
+                || b.ReceivingFactory.Name.ToLower().Contains(normalizedSearchTerm)
+                || b.Truck.LicensePlate.ToLower().Contains(normalizedSearchTerm)
+                || b.Driver.FirstName.ToLower().Contains(normalizedSearchTerm)
+                || b.Driver.FamilyName.ToLower().Contains(normalizedSearchTerm));
+            }
+
+            allBookings = sorting switch
+            {
+                BookingSorting.Oldest => allBookings.OrderBy(b => b.Id),
+                BookingSorting.Newest => allBookings.OrderByDescending(b=>b.Id)
+            };
+
+            var bookings = await allBookings
+                .Skip((currentPage - 1) * bookingsPerPage)
+                .Take(bookingsPerPage)
+                .Select(b => new BookingDetailsFormModel()
+                {
+                    Id = b.Id,
+                    BookingCreatorId = b.BookingCreatorId,
+                    BookingStatusId = b.BookingStatusId,
+                    DriverFirstName = b.Driver.FirstName,
+                    DriverLastName = b.Driver.FamilyName,
+                    LoadingCityName = b.Load.Factory.Location,
+                    LoadingFactoryName = b.Load.Factory.Name,
+                    LoadName = b.Load.Name,
+                    LoadWeigth = b.Load.Weigth,
+                    ReceivingFactoryCityName = b.ReceivingFactory.Location,
+                    ReceivingFactoryId = b.ReceivingFactory.Id,
+                    ReceivingFactoryName = b.ReceivingFactory.Name,
+                    TruckImage = b.Truck.ImageUrl,
+                    TruckManufacturer = b.Truck.Manufacturer,
+                    TruckPlateNumber = b.Truck.LicensePlate
+                })
+                .ToListAsync();
+
+            int totalBookings = await allBookings.CountAsync();
+
+            return new AllBookingsQueryModel()
+            {
+                Bookings = bookings,
+                TotalBookingsCount = totalBookings
+            };
         }
 
         public async Task BookingReceived(int id)

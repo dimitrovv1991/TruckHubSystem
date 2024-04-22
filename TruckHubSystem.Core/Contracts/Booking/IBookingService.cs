@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TruckHubSystem.Core.Enums;
 using TruckHubSystem.Core.Models.Booking;
 using TruckHubSystem.Core.Models.Driver;
 using TruckHubSystem.Core.Models.Factory;
@@ -20,6 +21,12 @@ namespace TruckHubSystem.Core.Contracts.Booking
             FactoryDetailsViewModel selectedFactory,
             string creator);
 
+        public Task<AllBookingsQueryModel> AllAsync(
+            string search = null,
+            BookingSorting sorting = BookingSorting.Newest,
+            BookingStatus status = BookingStatus.All,
+            int currentPage = 1,
+            int bookingsPerPage = 8);
         public Task BookingReceived(int id);
 
         public Task<BookingDetailsFormModel> SelectBookingById(int id);
