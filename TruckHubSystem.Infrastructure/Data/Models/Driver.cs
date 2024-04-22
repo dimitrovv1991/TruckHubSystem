@@ -17,21 +17,22 @@ namespace TruckHubSystem.Infrastructure.Data.Models
         [Required]
         [MaxLength(DriverNameMaxLength)]
         [Comment("Driver's first name")]
-        public string FirstName { get; set; } = string.Empty;
+        public string FirstName { get; set; } = null!;
 
         [Required]
         [MaxLength(DriverNameMaxLength)]
         [Comment("Driver's family name")]
-        public string FamilyName { get; set; } = string.Empty;
+        public string FamilyName { get; set; } = null!;
 
         [Required]
         [MaxLength(PhoneNumberMaxLength)]
         [Comment("Driver's phone number")]
-        public string PhoneNumber { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = null!;
 
 
         [Required]
         [YearRange(MinYearDrivingLicenceAcquired, ErrorMessage = YearErrorMessage)]
+        [Comment("Which year driver has acquired his driving license")]
         public int YearDrivingLicenseAcquired { get; set; }
 
         [Required]

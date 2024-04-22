@@ -15,6 +15,7 @@ namespace TruckHubSystem.Infrastructure.Data.Models
     public class Factory
     {
         [Key]
+        [Comment("Factory identifier")]
         public int Id {  get; set; }
 
         [Required]
@@ -24,6 +25,7 @@ namespace TruckHubSystem.Infrastructure.Data.Models
 
         [Required]
         [MaxLength(CityNameMaxLength)]
+        [Comment("City")]
         public string Location { get; set; } = string.Empty;
 
         [Required]
@@ -32,11 +34,5 @@ namespace TruckHubSystem.Infrastructure.Data.Models
 
         [ForeignKey(nameof(CreatorId))]
         public IdentityUser Creator { get; set; } = null!;
-
-
-        public List<Load> LoadsSent = new List<Load>();
-        public List<Load> LoadsReceived = new List<Load>();
-        public List<Load> CurrentLoads = new List<Load>();
-
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TruckHubSystem.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using TruckHubSystem.Infrastructure.Data;
 namespace TruckHubSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(TruckHubDbContext))]
-    partial class TruckHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240422132229_FormsAdjusted")]
+    partial class FormsAdjusted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,15 +145,15 @@ namespace TruckHubSystem.Infrastructure.Migrations
                         {
                             Id = "kiu12856-c198-6532-jf28-b893d8395280",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "14ea73a4-025f-49a1-a518-b5ac8801843d",
+                            ConcurrencyStamp = "acaf92cf-9a14-4b6f-b429-e1e8bc7bb666",
                             Email = "guest@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@gmail.com",
                             NormalizedUserName = "guest@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDounOQFWNMWfr/yCfvE8IeD329WIepmm3vhWnbOBhB+Nj0oWKjoh/6pq73afogjrQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJumIQTgtZSFhu0Cm6KLtdb5wFlOCbarzQ83bjFteYtz4cLe4FGU+LcT7QyLDf6Oag==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "63ea9736-4de1-4e44-adcc-353f11576faa",
+                            SecurityStamp = "8b883230-f648-4857-97a6-3c7bb75a2ee7",
                             TwoFactorEnabled = false,
                             UserName = "guest@gmail.com"
                         },
@@ -159,15 +161,15 @@ namespace TruckHubSystem.Infrastructure.Migrations
                         {
                             Id = "b893d8395280-jf28-6532-c198-kiu12856",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b0758420-1a85-494c-b9fc-0a7e7551e490",
+                            ConcurrencyStamp = "305198b8-49cf-4e6c-809c-ec0022d62998",
                             Email = "guest2@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest2@gmail.com",
                             NormalizedUserName = "guest2@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ5g3+PTmbKGMvSZ1sAjVdHONi869FKQdR7hwW5aKefjff0ptoCBEqKQAEq/S8KVqg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENH9OQEn7jNKWZ1ViGmhmNfVSjl0mdDeNUCuFb0rOcuTHasQF4+rPifdzJCQrPyG9g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9e36ba1e-1729-4865-9603-639c926f6ac2",
+                            SecurityStamp = "58be6672-d86c-43f9-987c-e0ce88351083",
                             TwoFactorEnabled = false,
                             UserName = "guest2@gmail.com"
                         });

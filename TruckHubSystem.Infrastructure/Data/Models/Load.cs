@@ -24,12 +24,14 @@ namespace TruckHubSystem.Infrastructure.Data.Models
         public int Weigth { get; set;}
 
         [Required]
+        [Comment("Load category identifier")]
         public int LoadCategoryId { get; set; }
 
         [ForeignKey(nameof(LoadCategoryId))]
         public LoadCategory LoadCategory { get; set; } = null!;
 
         [Required]
+        [Comment("Factory identifier")]
         public int FactoryId { get; set; }
 
         [ForeignKey(nameof(FactoryId))]

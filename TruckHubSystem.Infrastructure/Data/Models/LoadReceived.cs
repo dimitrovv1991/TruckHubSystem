@@ -16,12 +16,14 @@ namespace TruckHubSystem.Infrastructure.Data.Models
         public int Id { get; set; }
 
         [Required]
+        [Comment("Receiving factory identifier")]
         public int FactoryId { get; set; }
 
         [ForeignKey(nameof(FactoryId))]
         public Factory Factory { get; set; } = null!;
 
         [Required]
+        [Comment("Load identifier")]
         public int LoadId { get; set; }
         [ForeignKey(nameof(LoadId))]
         public Load Load{ get; set; } = null!;
