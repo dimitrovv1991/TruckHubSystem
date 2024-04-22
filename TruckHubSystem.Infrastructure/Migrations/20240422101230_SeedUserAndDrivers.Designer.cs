@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TruckHubSystem.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using TruckHubSystem.Infrastructure.Data;
 namespace TruckHubSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(TruckHubDbContext))]
-    partial class TruckHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240422101230_SeedUserAndDrivers")]
+    partial class SeedUserAndDrivers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,33 +145,17 @@ namespace TruckHubSystem.Infrastructure.Migrations
                         {
                             Id = "kiu12856-c198-6532-jf28-b893d8395280",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b87dc457-5f32-4ceb-99ec-64f29da30a11",
+                            ConcurrencyStamp = "83a48823-86f4-4c17-9735-e0a5778b8f66",
                             Email = "guest@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@gmail.com",
                             NormalizedUserName = "guest@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAELRsWZ8pzLiUCtkOd/SiMD20i3/02G/PP+AxZAuubLFI1TuXKP9NDG6rPuQ5nOuZuw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEdVEW9AR6N38GVfSHI50cRfZOjh2kZkOYoORIr+GFvBjoHlD8JC/jvWMI6hNZP1Yw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "79649552-ecee-41c2-b1e1-5ad62c7ba850",
+                            SecurityStamp = "790a204a-e8eb-40c5-ba89-07959054fc51",
                             TwoFactorEnabled = false,
                             UserName = "guest@gmail.com"
-                        },
-                        new
-                        {
-                            Id = "b893d8395280-jf28-6532-c198-kiu12856",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "8b7d3339-1c97-4c0b-90b9-effe28ce54be",
-                            Email = "guest2@gmail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "guest2@gmail.com",
-                            NormalizedUserName = "guest2@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPPktPd6zlmv4SsscAs7pRX5HE1Pe92xcDkM3yFO8vW81jrtQ4epld/ag6K3sZFG+w==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "dd54405c-b802-4187-a1ad-e68451781288",
-                            TwoFactorEnabled = false,
-                            UserName = "guest2@gmail.com"
                         });
                 });
 
@@ -369,38 +355,6 @@ namespace TruckHubSystem.Infrastructure.Migrations
                     b.HasIndex("LoadId");
 
                     b.ToTable("CurrentLoads");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FactoryId = 1,
-                            LoadId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FactoryId = 1,
-                            LoadId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            FactoryId = 2,
-                            LoadId = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            FactoryId = 3,
-                            LoadId = 4
-                        },
-                        new
-                        {
-                            Id = 5,
-                            FactoryId = 3,
-                            LoadId = 5
-                        });
                 });
 
             modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.Driver", b =>
@@ -525,29 +479,6 @@ namespace TruckHubSystem.Infrastructure.Migrations
                     b.ToTable("Factories");
 
                     b.HasComment("Factory");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatorId = "kiu12856-c198-6532-jf28-b893d8395280",
-                            Location = "Shumen",
-                            Name = "Ficosotta"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatorId = "kiu12856-c198-6532-jf28-b893d8395280",
-                            Location = "Ruse",
-                            Name = "Husqvarna"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatorId = "b893d8395280-jf28-6532-c198-kiu12856",
-                            Location = "Varna",
-                            Name = "Plastchim"
-                        });
                 });
 
             modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.Load", b =>
@@ -588,53 +519,6 @@ namespace TruckHubSystem.Infrastructure.Migrations
                     b.ToTable("Loads");
 
                     b.HasComment("Load");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FactoryId = 1,
-                            IsLoadAvailable = true,
-                            LoadCategoryId = 5,
-                            Name = "Detergents",
-                            Weigth = 12000
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FactoryId = 1,
-                            IsLoadAvailable = true,
-                            LoadCategoryId = 5,
-                            Name = "Detergents",
-                            Weigth = 19000
-                        },
-                        new
-                        {
-                            Id = 3,
-                            FactoryId = 2,
-                            IsLoadAvailable = true,
-                            LoadCategoryId = 8,
-                            Name = "Machines",
-                            Weigth = 7000
-                        },
-                        new
-                        {
-                            Id = 4,
-                            FactoryId = 3,
-                            IsLoadAvailable = true,
-                            LoadCategoryId = 1,
-                            Name = "Plastics",
-                            Weigth = 22000
-                        },
-                        new
-                        {
-                            Id = 5,
-                            FactoryId = 3,
-                            IsLoadAvailable = true,
-                            LoadCategoryId = 5,
-                            Name = "Plastics",
-                            Weigth = 21000
-                        });
                 });
 
             modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.LoadCategory", b =>
@@ -798,63 +682,6 @@ namespace TruckHubSystem.Infrastructure.Migrations
                     b.ToTable("Trucks");
 
                     b.HasComment("Truck");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Available = true,
-                            CapacityKg = 14000,
-                            ImageUrl = "https://content.presspage.com/uploads/2678/6a533810-4bd3-4c85-b7cc-cefe06c5ef1c/1920_njitransport-5.jpg",
-                            LicensePlate = "P7777PP",
-                            Manufacturer = "Man",
-                            Model = "TGX",
-                            YearManufactured = 2021
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Available = true,
-                            CapacityKg = 15000,
-                            ImageUrl = "https://autobild.bg/wp-content/uploads/2020/09/Actros-Edition-2-3.jpg",
-                            LicensePlate = "C1234CC",
-                            Manufacturer = "Mercedes-Benz",
-                            Model = "Actros",
-                            YearManufactured = 2022
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Available = true,
-                            CapacityKg = 13000,
-                            ImageUrl = "http://www.autoconsulting.com.ua/pictures/others/2019/Volvo_FH_iSave_01.jpg",
-                            LicensePlate = "PB5678BB",
-                            Manufacturer = "Volvo",
-                            Model = "FH",
-                            YearManufactured = 2020
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Available = true,
-                            CapacityKg = 12000,
-                            ImageUrl = "https://autobild.bg/wp-content/uploads/2021/11/DAF-XF-Hydrogen_Truck-Innovation-Award.jpg",
-                            LicensePlate = "B9999BB",
-                            Manufacturer = "DAF",
-                            Model = "XF",
-                            YearManufactured = 2019
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Available = true,
-                            CapacityKg = 13500,
-                            ImageUrl = "https://img.carswp.com/scania/r-series/scania_r-series_2014_images_1.jpg",
-                            LicensePlate = "A1111AA",
-                            Manufacturer = "Scania",
-                            Model = "R Series",
-                            YearManufactured = 2021
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

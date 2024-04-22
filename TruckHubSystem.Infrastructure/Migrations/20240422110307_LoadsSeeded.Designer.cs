@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TruckHubSystem.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using TruckHubSystem.Infrastructure.Data;
 namespace TruckHubSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(TruckHubDbContext))]
-    partial class TruckHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240422110307_LoadsSeeded")]
+    partial class LoadsSeeded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,15 +145,15 @@ namespace TruckHubSystem.Infrastructure.Migrations
                         {
                             Id = "kiu12856-c198-6532-jf28-b893d8395280",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b87dc457-5f32-4ceb-99ec-64f29da30a11",
+                            ConcurrencyStamp = "5c2c49e1-5811-4fe2-a94c-4e0dc56252f6",
                             Email = "guest@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@gmail.com",
                             NormalizedUserName = "guest@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAELRsWZ8pzLiUCtkOd/SiMD20i3/02G/PP+AxZAuubLFI1TuXKP9NDG6rPuQ5nOuZuw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENLn0D2xEP4NSSQKLKvPAsbxARxkc9FrDp1Bfx3RmOrKZeXXKjM9J/rGM7fszsOg6A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "79649552-ecee-41c2-b1e1-5ad62c7ba850",
+                            SecurityStamp = "5d284875-6225-43b7-8b6c-2e489957dc1e",
                             TwoFactorEnabled = false,
                             UserName = "guest@gmail.com"
                         },
@@ -159,15 +161,15 @@ namespace TruckHubSystem.Infrastructure.Migrations
                         {
                             Id = "b893d8395280-jf28-6532-c198-kiu12856",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8b7d3339-1c97-4c0b-90b9-effe28ce54be",
+                            ConcurrencyStamp = "1cace751-1df3-4fcf-985c-c4593b1f0021",
                             Email = "guest2@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest2@gmail.com",
                             NormalizedUserName = "guest2@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPPktPd6zlmv4SsscAs7pRX5HE1Pe92xcDkM3yFO8vW81jrtQ4epld/ag6K3sZFG+w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAQ/rdQ/cUKUqPYEKREAQJE9GLY+t9xslHuK8y1FWzMXs6kUPZzamxlZHZEbjL6hTQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dd54405c-b802-4187-a1ad-e68451781288",
+                            SecurityStamp = "c6b5e3bd-728d-450c-9f26-5d8400297726",
                             TwoFactorEnabled = false,
                             UserName = "guest2@gmail.com"
                         });
@@ -369,38 +371,6 @@ namespace TruckHubSystem.Infrastructure.Migrations
                     b.HasIndex("LoadId");
 
                     b.ToTable("CurrentLoads");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FactoryId = 1,
-                            LoadId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FactoryId = 1,
-                            LoadId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            FactoryId = 2,
-                            LoadId = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            FactoryId = 3,
-                            LoadId = 4
-                        },
-                        new
-                        {
-                            Id = 5,
-                            FactoryId = 3,
-                            LoadId = 5
-                        });
                 });
 
             modelBuilder.Entity("TruckHubSystem.Infrastructure.Data.Models.Driver", b =>
