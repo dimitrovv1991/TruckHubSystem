@@ -118,8 +118,6 @@ namespace TruckHubSystem.Controllers
                 .Factories
                 .FirstOrDefault(fi => fi.Id == loadToAdd.FactoryId);
 
-            currentFactory.LoadsReceived.Add(loadToAdd);
-
             await data.Loads.AddAsync(loadToAdd);
             await data.SaveChangesAsync();
 

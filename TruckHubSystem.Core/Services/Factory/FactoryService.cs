@@ -112,11 +112,6 @@ namespace TruckHubSystem.Core.Services.Factory
                 .ToList();
         }
 
-        public async Task LoadOriginFactoryById(int id, LoadDetailsViewModel load)
-        {
-           
-        }
-
         public async Task<FactoryDetailsViewModel> SelectedFactoryById(int id)
         {
             return await repository.AllReadOnly<Infrastructure.Data.Models.Factory>()
